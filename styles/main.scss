@@ -1,0 +1,94 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #EEF1F4;
+  color: #11253E;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  background-color: #F2F5F7;
+  border-radius: 6px;
+  box-shadow: 0px 4px 18px rgba(18,38,63,0.12);
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+canvas {
+  background-color: white;
+  box-shadow: 0px 2px 4px rgba(227, 233, 237, 0.5);
+}
+
+section {
+  padding: 12px 18px;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+
+  p {
+    padding: 0;
+    margin: 0;
+
+    svg {
+      margin: 0 6px 0 0;
+    }
+  }
+
+  &.score {
+    padding: 12px 18px 16px;
+  }
+}
+
+div.game-over-screen {
+  width: 400px;
+  height: 300px;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #F2F5F7;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  position: absolute;
+  top: calc(50% - 150px - 24px);
+  left: calc(50% - 200px);
+
+  p {
+    padding: 0;
+    margin: 0;
+
+    &.large {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    &.final-score {
+      margin: 6px 0 0 0;
+      font-weight: 300;
+    }
+  }
+}
+
+footer {
+  width: 200px;
+  font-size: 12px;
+  color: #617691;
+  position: fixed;
+  left: calc(50% - 100px);
+  bottom: 30px;
+  opacity: 0.4;
+  text-align: center;
+
+  a {
+    color: inherit;
+    font-weight: 500;
+    text-decoration: none;
+  }
+}

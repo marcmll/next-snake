@@ -1,0 +1,32 @@
+{
+  "name": "next-snake",
+  "version": "0.0.1",
+  "description": "Minimal Snake browser game, built with Next and Google Cloud Firestore",
+  "main": "server.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcmll/next-snake.git"
+  },
+  "author": "Marc Müller",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcmll/next-snake/issues"
+  },
+  "homepage": "https://github.com/marcmll/next-snake",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/pro-duotone-svg-icons": "^5.14.0",
+    "@fortawesome/react-fontawesome": "^0.1.11",
+    "firebase": "^7.17.0",
+    "firebase-admin": "^9.0.0",
+    "next": "^9.4.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "sass": "^1.26.10"
+  }
+}
