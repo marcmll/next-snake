@@ -33,7 +33,7 @@ export default function SnakeGame () {
   const clearCanvas = ctx => ctx.clearRect(0, 0, canvasWidth, canvasHeight)
 
   const startGame = () => {
-    setGameDelay(1000 / 15)
+    setGameDelay(1000 / 12)
     setIsLost(false)
     setScore(0)
     setSnake({
@@ -49,6 +49,7 @@ export default function SnakeGame () {
   const gameOver = () => {
     if (score > highscore) {
       setHighscore(score)
+      localStorage.setItem('highscore', highscore)
       setNewHighscore(true)
     }
     setIsLost(true)
@@ -123,14 +124,9 @@ export default function SnakeGame () {
     setHighscore(parseInt(localStorage.getItem('highscore')) || 0)
   }, [])
 
-  // Highscore Hook
-  useEffect(() => {
-    localStorage.setItem('highscore', highscore)
-  }, [highscore])
-
   // Score Hook: increase game speed starting at 16
   useEffect(() => {
-    if (score > 15 && score < 25) {
+    if (score > 12 && score <= 18) {
       setGameDelay((1000 / score))
     }
   }, [score])
@@ -179,14 +175,14 @@ export default function SnakeGame () {
         />
         <section>
           <div className='score'>
-            <p><FontAwesomeIcon icon={['fad', 'stars']} />Score: {score}</p>
-            <p><FontAwesomeIcon icon={['fad', 'trophy-alt']} />Highscore: {highscore}</p>
+            <p><FontAwesomeIcon icon={['fas', 'star']} />Score: {score}</p>
+            <p><FontAwesomeIcon icon={['fas', 'trophy']} />Highscore: {highscore}</p>
           </div>
           { (!isLost && countDown > 0) ?
             <button onClick={startGame}>{ countDown === 4 ? 'Start Game' : countDown}</button> :
             <div className='controls'>
               <p>How to Play?</p>
-              <p><FontAwesomeIcon icon={['fad', 'arrow-square-up']} /><FontAwesomeIcon icon={['fad', 'arrow-square-right']} /><FontAwesomeIcon icon={['fad', 'arrow-square-down']} /><FontAwesomeIcon icon={['fad', 'arrow-square-left']} /></p>
+              <p><FontAwesomeIcon icon={['fas', 'arrow-up']} /><FontAwesomeIcon icon={['fas', 'arrow-right']} /><FontAwesomeIcon icon={['fas', 'arrow-down']} /><FontAwesomeIcon icon={['fas', 'arrow-left']} /></p>
             </div>
           }
         </section>

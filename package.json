@@ -19,10 +19,10 @@
   },
   "homepage": "https://github.com/marcmll/next-snake",
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.30",
-    "@fortawesome/free-brands-svg-icons": "^5.14.0",
-    "@fortawesome/pro-duotone-svg-icons": "^5.14.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@fortawesome/free-brands-svg-icons": "^5.14.0",
     "@use-it/interval": "^0.1.3",
     "next": "^9.5.0",
     "react": "^16.13.1",
