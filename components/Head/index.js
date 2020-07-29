@@ -5,9 +5,9 @@ export default function HeadComponent () {
     <Head>
       <title>Snake | Built by Marc Müller</title>
       <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-      <meta property='author' content='Marc Müller' />
-      <meta property='description' content='Minimal Snake browser game built using Next.js' />
-      <meta property='keywords' content='snake, snake game, browser game, nextjs, react' />
+      <meta name='author' content='Marc Müller' />
+      <meta name='description' content='Minimal Snake browser game built using Next.js' />
+      <meta name='keywords' content='snake, snake game, browser game, nextjs, react' />
 
       {/* OG Meta Tags */}
       <meta property='og:url' content='https://next-snake.vercel.app/' />
