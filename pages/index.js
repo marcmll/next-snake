@@ -1,20 +1,17 @@
 import { useState, useEffect, useRef } from 'react'
 import useInterval from '@use-it/interval'
 import drawRoundRect from 'lib/roundRect'
+import Head from 'components/Head'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function SnakeGame () {
+  // Canvas Settings
   const canvasRef = useRef(null)
   const canvasWidth = 500
   const canvasHeight = 380
   const canvasGridSize = 20
 
-  const generateApplePosition = () => {
-    const x = Math.floor(Math.random() * (canvasWidth / canvasGridSize))
-    const y = Math.floor(Math.random() * (canvasHeight / canvasGridSize))
-    return { x, y }
-  }
-
+  // Game State
   const [gameDelay, setGameDelay] = useState()
   const [countDown, setCountDown] = useState(4)
   const [running, setRunning] = useState(false)
@@ -32,6 +29,17 @@ export default function SnakeGame () {
 
   const clearCanvas = ctx => ctx.clearRect(0, 0, canvasWidth, canvasHeight)
 
+  const generateApplePosition = () => {
+    const x = Math.floor(Math.random() * (canvasWidth / canvasGridSize))
+    const y = Math.floor(Math.random() * (canvasHeight / canvasGridSize))
+    // Check if random position interferes with snake head or trail
+    if ((snake.head.x === x && snake.head.y === y) || (snake.trail.some(snakePart => (snakePart.x === x && snakePart.y === y)))) {
+      return generateApplePosition()
+    }
+    return { x, y }
+  }
+
+  // Initialise state and start countdown
   const startGame = () => {
     setGameDelay(1000 / 12)
     setIsLost(false)
@@ -46,6 +54,7 @@ export default function SnakeGame () {
     setCountDown(3)
   }
 
+  // Reset state and check for highscore
   const gameOver = () => {
     if (score > highscore) {
       setHighscore(score)
@@ -167,6 +176,7 @@ export default function SnakeGame () {
 
   return (
     <>
+      <Head />
       <main>
         <canvas
           ref={canvasRef}

@@ -1,0 +1,27 @@
+import Head from 'next/head'
+
+export default function HeadComponent () {
+  return (
+    <Head>
+      <title>Snake | Built by Marc Müller</title>
+      <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+      <meta property='author' content='Marc Müller' />
+      <meta property='description' content='Minimal Snake browser game built using Next.js' />
+      <meta property='keywords' content='snake, snake game, browser game, nextjs, react' />
+
+      {/* OG Meta Tags */}
+      <meta property='og:url' content='https://next-snake.vercel.app/' />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='Next-Snake | Built by Marc Müller' />
+      <meta property='og:description' content='Minimal Snake browser game built using Next.js' />
+      <meta property='og:image' content='https://next-snake.vercel.app/social-preview-image.jpg' />
+
+      {/* Twitter Card */}
+      <meta name='twitter:card' content='summary' />
+      <meta name='twitter:site' content='@seven11nash' />
+      <meta name='twitter:title' content='Next-Snake | Built by Marc Müller' />
+      <meta name='twitter:description' content='Minimal Snake browser game built using Next.js' />
+      <meta name='twitter:image' content='https://next-snake.vercel.app/twitter-summary-card.jpg' />
+    </Head>
+  )
+}
