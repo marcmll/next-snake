@@ -51,6 +51,7 @@ export default function SnakeGame () {
     setApple(generateApplePosition())
     setVelocity({ dx: 0, dy: -1 })
     setRunning(true)
+    setNewHighscore(false)
     setCountDown(3)
   }
 
@@ -58,7 +59,7 @@ export default function SnakeGame () {
   const gameOver = () => {
     if (score > highscore) {
       setHighscore(score)
-      localStorage.setItem('highscore', highscore)
+      localStorage.setItem('highscore', score)
       setNewHighscore(true)
     }
     setIsLost(true)
@@ -186,7 +187,7 @@ export default function SnakeGame () {
         <section>
           <div className='score'>
             <p><FontAwesomeIcon icon={['fas', 'star']} />Score: {score}</p>
-            <p><FontAwesomeIcon icon={['fas', 'trophy']} />Highscore: {highscore}</p>
+            <p><FontAwesomeIcon icon={['fas', 'trophy']} />Highscore: {highscore > score ? highscore : score}</p>
           </div>
           { (!isLost && countDown > 0) ?
             <button onClick={startGame}>{ countDown === 4 ? 'Start Game' : countDown}</button> :
