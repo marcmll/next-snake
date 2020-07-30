@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
 import useInterval from '@use-it/interval'
-import drawRoundRect from 'lib/roundRect'
 import Head from 'components/Head'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -10,6 +9,10 @@ export default function SnakeGame () {
   const canvasWidth = 500
   const canvasHeight = 380
   const canvasGridSize = 20
+
+  // Game Settings
+  const minGameSpeed = 10
+  const maxGameSpeed = 15
 
   // Game State
   const [gameDelay, setGameDelay] = useState()
@@ -41,7 +44,7 @@ export default function SnakeGame () {
 
   // Initialise state and start countdown
   const startGame = () => {
-    setGameDelay(1000 / 12)
+    setGameDelay(1000 / minGameSpeed)
     setIsLost(false)
     setScore(0)
     setSnake({
@@ -71,17 +74,20 @@ export default function SnakeGame () {
   const drawSnake = ctx => {
     ctx.fillStyle = '#0170F3'
     ctx.strokeStyle = '#003779'
-    drawRoundRect(ctx, (snake.head.x * canvasGridSize), (snake.head.y * canvasGridSize), canvasGridSize, canvasGridSize, 4, true)
+    ctx.fRect((snake.head.x * canvasGridSize), (snake.head.y * canvasGridSize), canvasGridSize, canvasGridSize)
+    ctx.sRect((snake.head.x * canvasGridSize), (snake.head.y * canvasGridSize), canvasGridSize, canvasGridSize)
     snake.trail.forEach(snakePart => {
-      drawRoundRect(ctx, (snakePart.x * canvasGridSize), (snakePart.y * canvasGridSize), canvasGridSize, canvasGridSize, 4, true)
+      ctx.fRect((snakePart.x * canvasGridSize), (snakePart.y * canvasGridSize), canvasGridSize, canvasGridSize)
+      ctx.sRect((snakePart.x * canvasGridSize), (snakePart.y * canvasGridSize), canvasGridSize, canvasGridSize)
     })
   }
 
   const drawApple = ctx => {
-    ctx.fillStyle = '#38C172' // '#F4CA64'
-    ctx.strokeStyle = '#187741' // '#8C6D1F
+    ctx.fillStyle = '#DC3030' // '#38C172' // '#F4CA64'
+    ctx.strokeStyle = '#881A1B' // '#187741' // '#8C6D1F
     if (apple && (typeof apple.x !== 'undefined') && (typeof apple.y !== 'undefined')) {
-      drawRoundRect(ctx, (apple.x * canvasGridSize), (apple.y * canvasGridSize), canvasGridSize, canvasGridSize, 4, true)
+      ctx.fRect((apple.x * canvasGridSize), (apple.y * canvasGridSize), canvasGridSize, canvasGridSize)
+      ctx.sRect((apple.x * canvasGridSize), (apple.y * canvasGridSize), canvasGridSize, canvasGridSize)
     }
   }
 
@@ -110,12 +116,25 @@ export default function SnakeGame () {
   useEffect(() => {
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
+
+    ctx.fRect = (x, y, w, h) => {
+      x = parseInt(x)
+      y = parseInt(y)
+      ctx.fillRect(x, y, w, h)
+    }
+
+    ctx.sRect = (x, y, w, h) => {
+      x = parseInt(x) + 0.50
+      y = parseInt(y) + 0.50
+      ctx.strokeRect(x, y, w, h)
+    }
+
     if (!isLost) {
       clearCanvas(ctx)
       drawApple(ctx)
       drawSnake(ctx)
     }
-  }, [snake, apple])
+  }, [snake])
 
   // Game Update Interval
   useInterval(() => {
@@ -127,7 +146,7 @@ export default function SnakeGame () {
   // Countdown Interval
   useInterval(() => {
     setCountDown(prevCountDown => (prevCountDown - 1))
-  }, (countDown > 0 && countDown < 4) ? 1000 : null)
+  }, (countDown > 0 && countDown < 4) ? 800 : null)
 
   // DidMount Hook for Highscore
   useEffect(() => {
@@ -136,7 +155,7 @@ export default function SnakeGame () {
 
   // Score Hook: increase game speed starting at 16
   useEffect(() => {
-    if (score > 12 && score <= 18) {
+    if (score > minGameSpeed && score <= maxGameSpeed) {
       setGameDelay((1000 / score))
     }
   }, [score])
@@ -144,7 +163,7 @@ export default function SnakeGame () {
   // Event Listener: Key Presses
   useEffect(() => {
     const handleKeyDown = e => {
-      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'w', 'a', 's', 'd'].includes(e.key)) {
         let velocity = {}
         switch (e.key) {
           case 'ArrowRight':
@@ -157,6 +176,18 @@ export default function SnakeGame () {
             velocity = { dx: 0, dy: 1 }
             break
           case 'ArrowUp':
+            velocity = { dx: 0, dy: -1 }
+            break
+          case 'd':
+            velocity = { dx: 1, dy: 0 }
+            break
+          case 'a':
+            velocity = { dx: -1, dy: 0 }
+            break
+          case 's':
+            velocity = { dx: 0, dy: 1 }
+            break
+          case 'w':
             velocity = { dx: 0, dy: -1 }
             break
           default:
