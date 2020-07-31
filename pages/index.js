@@ -30,7 +30,7 @@ export default function SnakeGame () {
   const [velocity, setVelocity] = useState({})
   const [previousVelocity, setPreviousVelocity] = useState({})
 
-  const clearCanvas = ctx => ctx.clearRect(0, 0, canvasWidth, canvasHeight)
+  const clearCanvas = ctx => ctx.clearRect(-1, -1, (canvasWidth + 2), (canvasHeight + 2))
 
   const generateApplePosition = () => {
     const x = Math.floor(Math.random() * (canvasWidth / canvasGridSize))
@@ -91,24 +91,33 @@ export default function SnakeGame () {
     }
   }
 
+  // Update snake.head, snake.trail and apple positions. Check for collisions.
   const updateSnake = () => {
+    // Check for collision with walls
     const nextHeadPosition = { x: snake.head.x + velocity.dx, y: snake.head.y + velocity.dy }
     if (nextHeadPosition.x < 0 || nextHeadPosition.y < 0
         || nextHeadPosition.x >= (canvasWidth / canvasGridSize)
         || nextHeadPosition.y >= (canvasHeight / canvasGridSize)) {
       gameOver()
     }
+
+    // Check for collision with apple
     if (nextHeadPosition.x === apple.x && nextHeadPosition.y === apple.y) {
       setScore(prevScore => (prevScore + 1))
       setApple(generateApplePosition())
     }
+
     const updatedSnakeTrail = [...snake.trail, { ...snake.head }]
+    // Remove trail history beyond snake trail length (score + 2)
     while (updatedSnakeTrail.length > (score + 2)) updatedSnakeTrail.shift()
+    // Check for snake colliding with itsself
     if (updatedSnakeTrail.some(snakePart => (snakePart.x === nextHeadPosition.x && snakePart.y === nextHeadPosition.y))) gameOver()
+
+    // Update state
     setPreviousVelocity({ ...velocity })
     setSnake({
-      head: { ...nextHeadPosition},
-      trail: [...updatedSnakeTrail]
+      head: { ...nextHeadPosition },
+      trail: [ ...updatedSnakeTrail ]
     })
   }
 
@@ -117,12 +126,12 @@ export default function SnakeGame () {
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
 
+    // Functions to sharpen rectangles drawn
     ctx.fRect = (x, y, w, h) => {
       x = parseInt(x)
       y = parseInt(y)
       ctx.fillRect(x, y, w, h)
     }
-
     ctx.sRect = (x, y, w, h) => {
       x = parseInt(x) + 0.50
       y = parseInt(y) + 0.50
@@ -212,8 +221,8 @@ export default function SnakeGame () {
       <main>
         <canvas
           ref={canvasRef}
-          width={canvasWidth}
-          height={canvasHeight}
+          width={canvasWidth + 1}
+          height={canvasHeight + 1}
         />
         <section>
           <div className='score'>
