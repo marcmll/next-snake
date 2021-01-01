@@ -248,7 +248,7 @@ export default function SnakeGame () {
         }
       </main>
       <footer>
-        Copyright &copy; <a href='https://mueller.dev'>Marc Müller</a> 2020 &nbsp;|&nbsp; <a href='https://github.com/marcmll/next-snake'><FontAwesomeIcon icon={['fab', 'github']} /> Github</a> 
+        Copyright &copy; <a href='https://mueller.dev'>Marc Müller</a> 2021 &nbsp;|&nbsp; <a href='https://github.com/marcmll/next-snake'><FontAwesomeIcon icon={['fab', 'github']} /> Github</a> 
       </footer>
     </>
   )
