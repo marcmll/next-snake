@@ -19,14 +19,24 @@
   },
   "homepage": "https://github.com/marcmll/next-snake",
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.30",
-    "@fortawesome/free-brands-svg-icons": "^5.14.0",
-    "@fortawesome/free-solid-svg-icons": "^5.14.0",
-    "@fortawesome/react-fontawesome": "^0.1.11",
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-brands-svg-icons": "^5.15.4",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.16",
     "@use-it/interval": "^1.0.0",
-    "next": "^10.0.4",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "sass": "^1.26.10"
+    "next": "^12.0.7",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "sass": "^1.45.2"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.38",
+    "@typescript-eslint/eslint-plugin": "^5.8.1",
+    "eslint": "^8.6.0",
+    "eslint-config-next": "^12.0.7",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.1",
+    "typescript": "^4.5.4"
   }
 }

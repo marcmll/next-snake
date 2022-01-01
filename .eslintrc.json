@@ -1,0 +1,19 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "next/core-web-vitals",
+    "prettier"
+  ],
+  "globals": {
+    "JSX": true
+  },
+  "rules": {
+    "no-unused-vars": "off",
+    "prettier/prettier": "error",
+    "import/no-anonymous-default-export": "off",
+    "react/display-name": "off"
+  }
+}
